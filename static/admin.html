@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setu (सेतु) — Official Admin & Scheme Registry Portal | MoSJE</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .admin-page-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .admin-header-card {
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            color: #FFFFFF;
+            padding: 30px;
+            border-radius: var(--radius-md);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body style="background:#F1F5F9;">
+    <!-- Top Government Strip -->
+    <div class="gov-topbar" style="background:#020617;">
+        <div class="container topbar-content">
+            <div class="gov-identity">
+                <span class="flag-stripe"></span>
+                <span>Government of India • Ministry of Social Justice & Empowerment (MoSJE)</span>
+            </div>
+            <div style="font-size:0.85rem; color:#94A3B8;">
+                🔒 <strong>Restricted Administrative Portal (SIH26092)</strong>
+            </div>
+        </div>
+    </div>
+
+    <div class="admin-page-container">
+        <!-- Admin Login Screen (Shown when unauthenticated) -->
+        <div id="admin-login-screen" class="card" style="max-width:480px; margin:60px auto; padding:40px; box-shadow:var(--shadow-elevated);">
+            <div style="text-align:center; margin-bottom:24px;">
+                <div style="font-size:3rem;">🔐</div>
+                <h2 style="font-size:1.6rem; color:#0F172A; margin-top:8px;">Setu Administration</h2>
+                <p style="color:#64748B; font-size:0.95rem; margin-top:4px;">Official Ministry & Welfare Corporation Access</p>
+            </div>
+            <form onsubmit="handleAdminPageLogin(event)">
+                <div class="form-group">
+                    <label class="form-label">Master Administrative Password:</label>
+                    <input type="password" class="form-control" id="adm-page-pwd" placeholder="Enter administrative password..." required>
+                </div>
+                <div id="adm-page-error" style="color:#DC2626; font-size:0.9rem; margin-bottom:14px; display:none;"></div>
+                <button type="submit" class="btn btn-primary btn-block btn-lg">Unlock Admin Portal</button>
+                <div style="background:#F8FAFC; border:1px solid #E2E8F0; padding:12px; border-radius:6px; margin-top:20px; text-align:center;">
+                    <span style="font-size:0.85rem; color:#64748B;">Demo Password: <code>SetuAdmin@2026!#</code></span>
+                </div>
+            </form>
+            <div style="text-align:center; margin-top:24px;">
+                <a href="/" style="color:#2563EB; font-size:0.9rem; text-decoration:none; font-weight:600;">← Return to Public Citizen Website</a>
+            </div>
+        </div>
+
+        <!-- Admin Dashboard Screen (Shown when authenticated) -->
+        <div id="admin-dash-screen" style="display:none;">
+            <div class="admin-header-card">
+                <div>
+                    <span class="badge-success">Official Session Active</span>
+                    <h2 style="font-size:1.8rem; font-weight:800; margin-top:8px;">Affirmative Welfare Scheme Management</h2>
+                    <p style="color:#94A3B8; font-size:0.95rem;">National database registry for SC, ST, OBC, Divyangjan, Women & Minority enterprise schemes.</p>
+                </div>
+                <div style="display:flex; gap:12px;">
+                    <a href="/" class="btn btn-outline" style="color:white; border-color:#94A3B8;">🌐 Citizen Portal</a>
+                    <button class="btn btn-secondary" onclick="handleAdminPageLogout()">Logout</button>
+                </div>
+            </div>
+
+            <div class="card" style="padding:32px;">
+                <div class="admin-tabs">
+                    <button class="admin-tab active" onclick="switchAdmTab('manage')">📋 Scheme Registry (<span id="adm-scheme-count">0</span>)</button>
+                    <button class="admin-tab" onclick="switchAdmTab('add')">➕ Add New Scheme</button>
+                    <button class="admin-tab" onclick="switchAdmTab('bulk')">📤 Bulk CSV Upload</button>
+                    <button class="admin-tab" onclick="switchAdmTab('audit')">📜 System Audit Trail</button>
+                </div>
+
+                <!-- Tab 1: Manage Schemes Table -->
+                <div id="admpage-tab-manage">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
+                        <input type="text" class="form-control" id="adm-table-search" placeholder="🔍 Search schemes in database..." style="max-width:360px;" oninput="filterAdminTable()">
+                        <button class="btn btn-secondary btn-sm" onclick="exportSchemesCSV()">💾 Download schemes.csv</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="admin-table" id="adm-full-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Scheme Name</th>
+                                    <th>Sponsoring Ministry</th>
+                                    <th>Category</th>
+                                    <th>Benefit</th>
+                                    <th>Type</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Add New Scheme Form -->
+                <div id="admpage-tab-add" style="display:none;">
+                    <h3 style="margin-bottom:16px;">Add New Affirmative Credit / Welfare Scheme</h3>
+                    <form onsubmit="handleSaveNewScheme(event)">
+                        <div class="form-row-2">
+                            <div class="form-group">
+                                <label class="form-label">Scheme ID *:</label>
+                                <input type="text" class="form-control" id="form-sid" placeholder="e.g. SETU-013" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Scheme Name *:</label>
+                                <input type="text" class="form-control" id="form-sname" placeholder="e.g. National Divyangjan Incubation Scheme" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Sponsoring Ministry / Corporation *:</label>
+                            <input type="text" class="form-control" id="form-sbody" placeholder="e.g. NHFDC / Ministry of Social Justice & Empowerment" required>
+                        </div>
+                        <div class="form-row-2">
+                            <div class="form-group">
+                                <label class="form-label">Eligible Categories (Pipe-separated) *:</label>
+                                <input type="text" class="form-control" id="form-cat" value="SC|ST|OBC|Divyangjan" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Benefit Type:</label>
+                                <select class="form-control" id="form-btype">
+                                    <option value="Loan">Loan</option>
+                                    <option value="Subsidy">Subsidy</option>
+                                    <option value="Grant">Grant</option>
+                                    <option value="Composite">Composite</option>
+                                    <option value="Equity">Equity</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Benefit Amount & Subsidy Summary *:</label>
+                            <input type="text" class="form-control" id="form-bamt" placeholder="e.g. Concessional credit up to ₹15 Lakhs @ 4% interest per annum" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Detailed Scheme Description *:</label>
+                            <textarea class="form-control" id="form-desc" rows="3" placeholder="Provide full eligibility rules and enterprise scope..." required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Required Documents (Pipe-separated) *:</label>
+                            <input type="text" class="form-control" id="form-docs" value="Aadhaar Card|Caste Certificate|Detailed Project Report (DPR)" required>
+                        </div>
+                        <div class="form-row-2">
+                            <div class="form-group">
+                                <label class="form-label">Official HTTPS Portal URL *:</label>
+                                <input type="url" class="form-control" id="form-url" placeholder="https://..." required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Helpline / Contact Number:</label>
+                                <input type="text" class="form-control" id="form-contact" placeholder="1800-xxx-xxxx">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Commit Scheme Atomically to Database</button>
+                    </form>
+                </div>
+
+                <!-- Tab 3: Bulk CSV Upload -->
+                <div id="admpage-tab-bulk" style="display:none; max-width:600px;">
+                    <h3 style="margin-bottom:8px;">Bulk CSV Ingestion</h3>
+                    <p style="color:#64748B; font-size:0.95rem; margin-bottom:20px;">Upload a `.csv` batch. The system strictly validates all headers and field constraints; invalid rows cause the batch to fail closed.</p>
+                    <input type="file" id="adm-page-csv" accept=".csv" class="form-control" style="margin-bottom:16px;">
+                    <button class="btn btn-primary btn-lg" onclick="handlePageBulkUpload()">Validate & Ingest CSV</button>
+                    <div id="adm-page-bulk-msg" style="margin-top:20px;"></div>
+                </div>
+
+                <!-- Tab 4: Audit Logs -->
+                <div id="admpage-tab-audit" style="display:none;">
+                    <h3 style="margin-bottom:12px;">Security & Operational Audit Log</h3>
+                    <pre class="audit-box" id="adm-page-audit-pre">Loading audit records...</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast-notification" style="display:none;" class="toast-box"></div>
+
+    <script src="/static/admin.js"></script>
+</body>
+</html>

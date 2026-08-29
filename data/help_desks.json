@@ -1,0 +1,86 @@
+{
+  "National": {
+    "nodal_body": "Ministry of Social Justice & Empowerment / MSME Champions",
+    "address": "Shastri Bhawan, Dr. Rajendra Prasad Road, New Delhi - 110001",
+    "toll_free": "1800-11-0301 (NSFDC) / 1800-547-0111 (MSME)",
+    "email": "support-setu@gov.in / champions@gov.in",
+    "services": "Central Welfare Corporation Nodal Inquiries, Scheme Policy Guidance"
+  },
+  "Maharashtra": {
+    "nodal_body": "Mahatma Phule Backward Class Development Corporation & MSME DFO Mumbai",
+    "address": "Khar Telephone Exchange Bldg, S.V. Road, Khar (West), Mumbai - 400052",
+    "toll_free": "022-26000251 / 1800-120-8040",
+    "email": "mpbcdc.mumbai@maharashtra.gov.in",
+    "services": "SC/ST/OBC Credit Channelisation, PMEGP Verification, Artisan Toolkit Support"
+  },
+  "Uttar Pradesh": {
+    "nodal_body": "UP Scheduled Castes Finance & Development Corp & MSME DFO Kanpur",
+    "address": "107, Prag Narain Road, Butler Colony, Lucknow, UP - 226001",
+    "toll_free": "1800-180-5131 / 0522-2209428",
+    "email": "upscfdc-lucknow@up.gov.in",
+    "services": "NSFDC/NBCFDC State Channelisation, ODOP Subsidies, Divyangjan Welfare"
+  },
+  "Tamil Nadu": {
+    "nodal_body": "TAHDCO (Tamil Nadu Adi Dravidar Housing & Development Corp)",
+    "address": "No. 31, Cenotaph Road, Teynampet, Chennai, Tamil Nadu - 600018",
+    "toll_free": "1800-425-4444 / 044-24310238",
+    "email": "tahdco_ho@yahoo.co.in",
+    "services": "Stand-Up India Margin Grants, Special Central Assistance, Tribal Micro-Credit"
+  },
+  "Karnataka": {
+    "nodal_body": "Dr. B.R. Ambedkar Development Corporation & MSME DFO Bengaluru",
+    "address": "9th Floor, Vishveshwaraiah Mini Tower, Dr. Ambedkar Veedhi, Bengaluru - 560001",
+    "toll_free": "1800-425-2252 / 080-22864875",
+    "email": "md@ambedkarcorp.karnataka.gov.in",
+    "services": "Self-employment credit linkage, SC/ST enterprise seed funding, DPR assistance"
+  },
+  "Gujarat": {
+    "nodal_body": "Gujarat Scheduled Castes Development Corp & MSME DFO Ahmedabad",
+    "address": "Block No. 4, 3rd Floor, Dr. Jivraj Mehta Bhavan, Gandhinagar, Gujarat - 382010",
+    "toll_free": "079-23253723 / 1800-233-0300",
+    "email": "gscdc-gnr@gujarat.gov.in",
+    "services": "Venture assistance, Bank subsidy clearance, PwD soft credit disbursement"
+  },
+  "Rajasthan": {
+    "nodal_body": "Rajasthan Anusuchit Jati Janjati Vitta Evam Vikas Nigam (Anuja Nigam)",
+    "address": "Nehru Sahkar Bhawan, 4th Floor, 22 Godam Circle, Jaipur - 302001",
+    "toll_free": "181 (CM Helpline) / 0141-2740443",
+    "email": "anujanigam@rajasthan.gov.in",
+    "services": "MUDRA & Standup Mitra facilitation, Artisan certification support"
+  },
+  "Bihar": {
+    "nodal_body": "Bihar State Scheduled Castes Co-operative Dev Corp & MSME DFO Patna",
+    "address": "Old Secretariat, Barrack No. 12, Patna, Bihar - 800015",
+    "toll_free": "1800-345-6214 / 0612-2217643",
+    "email": "bsscdc-patna@bihar.gov.in",
+    "services": "Mukhyamantri Udyami Yojana, Central Corporation loan routing"
+  },
+  "West Bengal": {
+    "nodal_body": "WBSCSTDFCL (WB SC, ST & OBC Development & Finance Corp)",
+    "address": "CF-217/A/1, Sector-I, Salt Lake City, Kolkata - 700064",
+    "toll_free": "1800-345-3262 / 033-40261500",
+    "email": "wbscstdfc@gmail.com",
+    "services": "Sabuj Sathi, NSFDC/NSTFDC term loan subsidy distribution"
+  },
+  "Madhya Pradesh": {
+    "nodal_body": "MP State Cooperative Scheduled Castes Finance & Dev Corp (Sant Ravidas Corp)",
+    "address": "Rajiv Gandhi Bhawan, 35 Shyamla Hills, Bhopal, MP - 462002",
+    "toll_free": "0755-2661571 / 181",
+    "email": "mpscfdc-bhopal@mp.gov.in",
+    "services": "Mukhyamantri Anusuchit Jati Swarojgar Yojana, KVIC liaison"
+  },
+  "Odisha": {
+    "nodal_body": "OSFDC (Odisha Scheduled Castes & Scheduled Tribes Dev Finance Corp)",
+    "address": "Lewis Road, Bhubaneswar, Odisha - 751002",
+    "toll_free": "0674-2430154 / 1800-345-6770",
+    "email": "osfdcho@gmail.com",
+    "services": "Special Micro-Enterprise loans, Tribal livelihood mission linkages"
+  },
+  "Delhi": {
+    "nodal_body": "Delhi SC ST OBC Minorities and Handicapped Finance and Dev Corp (DSFDC)",
+    "address": "Ambedkar Bhawan, Sector-16, Rohini, New Delhi - 110089",
+    "toll_free": "011-27882236 / 011-27882238",
+    "email": "dsfdc.delhi@gov.in",
+    "services": "Direct micro-credit, transport vehicle loan subsidy, skill-to-enterprise handholding"
+  }
+}

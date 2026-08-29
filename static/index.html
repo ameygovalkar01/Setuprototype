@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setu (सेतु) — AI-Driven Scheme Discovery for Marginalized Entrepreneurs | MoSJE</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Top Government Strip -->
+    <div class="gov-topbar">
+        <div class="container topbar-content">
+            <div class="gov-identity">
+                <span class="flag-stripe"></span>
+                <span>Government of India • Ministry of Social Justice & Empowerment</span>
+            </div>
+            <div class="accessibility-bar">
+                <button class="a11y-btn" id="btn-font-dec" title="Decrease font size">A-</button>
+                <button class="a11y-btn active" id="btn-font-reset" title="Normal font size">A</button>
+                <button class="a11y-btn" id="btn-font-inc" title="Increase font size">A+</button>
+                <button class="a11y-btn" id="btn-contrast" title="Toggle high contrast">🌓 Contrast</button>
+                <div class="lang-switch">
+                    <button class="lang-btn active" id="lang-en" onclick="setLanguage('en')">English</button>
+                    <button class="lang-btn" id="lang-hi" onclick="setLanguage('hi')">हिन्दी</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="main-nav-header">
+        <div class="container nav-container">
+            <a href="/" class="brand">
+                <div class="brand-emblem">🇮🇳</div>
+                <div class="brand-text">
+                    <h1 class="brand-title">SETU • सेतु</h1>
+                    <p class="brand-subtitle" data-i18n="nav_subtitle">AI-Driven Welfare Scheme & Credit Discovery</p>
+                </div>
+            </a>
+            <nav class="nav-links">
+                <a href="#matcher" class="nav-link active" data-i18n="nav_matcher">Scheme Matcher</a>
+                <a href="#explorer" class="nav-link" data-i18n="nav_explorer">Scheme Explorer</a>
+                <a href="#helpdesk" class="nav-link" data-i18n="nav_helpdesk">Nodal Helpdesks</a>
+                <a href="#privacy" class="nav-link" data-i18n="nav_privacy">Privacy Contract</a>
+                <div class="user-nav-box" id="user-auth-box">
+                    <button class="btn btn-primary btn-sm" onclick="openAuthModal('login')">👤 <span data-i18n="btn_login_signup">Login / Sign Up</span></button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container hero-grid">
+            <div class="hero-text">
+                <div class="hero-pill" data-i18n="hero_pill">🛡️ Smart India Hackathon • Problem SIH26092</div>
+                <h2 class="hero-title" data-i18n="hero_title">Empowering Marginalized Entrepreneurs Across India</h2>
+                <p class="hero-desc" data-i18n="hero_desc">
+                    Intelligent, explainable scheme discovery connecting Scheduled Castes, Scheduled Tribes, OBCs, Divyangjan (PwD), Women, and Minorities to affirmative credit, capital subsidies, toolkits, and incubation.
+                </p>
+                <div class="hero-cta-group">
+                    <button class="btn btn-secondary btn-lg" onclick="handleHeroCta()" data-i18n="btn_find_schemes">🚀 Find My Eligible Schemes</button>
+                    <a href="#explorer" class="btn btn-outline btn-lg" style="color:white; border-color:white;" data-i18n="btn_browse_catalog">📚 Browse All Schemes</a>
+                </div>
+                <div class="privacy-guarantee-badge">
+                    <span>🔒</span>
+                    <strong data-i18n="privacy_badge_text">Stateless In-Memory Matching:</strong>
+                    <span data-i18n="privacy_badge_sub">Zero Citizen Demographic PII is stored on disk or databases.</span>
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <div class="stat-num">12+</div>
+                    <div class="stat-label" data-i18n="stat_schemes">Central & State Welfare Schemes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num">₹15 Cr</div>
+                    <div class="stat-label" data-i18n="stat_support">Max Financial Support Available</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num">100%</div>
+                    <div class="stat-label" data-i18n="stat_privacy">Confidential & Explainable Rules</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num">36</div>
+                    <div class="stat-label" data-i18n="stat_states">States & Union Territories Covered</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Citizen Matcher Section -->
+    <main class="main-content container" id="matcher">
+        <div class="section-header">
+            <h2 class="section-title" data-i18n="matcher_header">🔍 Entrepreneur Eligibility Assessment</h2>
+            <p class="section-desc" data-i18n="matcher_sub">Complete your demographic and enterprise parameters. All fields are processed in temporary RAM only.</p>
+        </div>
+
+        <!-- Gated Lock Card (Shown when unauthenticated) -->
+        <div id="matcher-gate-card" class="card" style="text-align:center; padding:60px 30px; margin-bottom:50px; background:#F8FAFC; border:2px dashed #CBD5E1;">
+            <div style="font-size:3.5rem; margin-bottom:16px;">🔒</div>
+            <h3 style="font-size:1.6rem; color:#1E3A8A; margin-bottom:8px;">Citizen Authentication Required</h3>
+            <p style="color:#64748B; font-size:1.05rem; max-width:600px; margin:0 auto 24px auto;">
+                To protect citizen welfare resources and provide personalized affirmative scheme evaluation, please sign in or create an account with email verification.
+            </p>
+            <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap;">
+                <button class="btn btn-primary btn-lg" onclick="openAuthModal('login')">👤 Sign In to Your Account</button>
+                <button class="btn btn-secondary btn-lg" onclick="openAuthModal('signup')">✨ Create New Citizen Account</button>
+            </div>
+        </div>
+
+        <!-- Authenticated Matcher Content (Shown when logged in) -->
+        <div id="matcher-unlocked-content" style="display:none;" class="matcher-layout">
+            <!-- Intake Form Card -->
+            <div class="card form-card">
+                <form id="matcher-form" onsubmit="handleMatchSubmit(event)">
+                    <!-- Social Category Selection -->
+                    <div class="form-group">
+                        <label class="form-label" data-i18n="lbl_category">Social Category / Caste Group *</label>
+                        <div class="category-pills" id="category-pills">
+                            <label class="cat-pill active"><input type="radio" name="category" value="SC" checked> SC</label>
+                            <label class="cat-pill"><input type="radio" name="category" value="ST"> ST</label>
+                            <label class="cat-pill"><input type="radio" name="category" value="OBC"> OBC</label>
+                            <label class="cat-pill"><input type="radio" name="category" value="General"> General</label>
+                            <label class="cat-pill"><input type="radio" name="category" value="EWS"> EWS</label>
+                            <label class="cat-pill"><input type="radio" name="category" value="DNT"> DNT</label>
+                            <label class="cat-pill"><input type="radio" name="category" value="Minority"> Minority</label>
+                        </div>
+                    </div>
+
+                    <div class="form-row-2">
+                        <!-- Gender -->
+                        <div class="form-group">
+                            <label class="form-label" data-i18n="lbl_gender">Gender Identity</label>
+                            <select class="form-control" name="gender" id="inp-gender">
+                                <option value="All-Any" selected>All / Any</option>
+                                <option value="Female">Female</option>
+                                <option value="Male">Male</option>
+                                <option value="Transgender">Transgender</option>
+                            </select>
+                        </div>
+
+                        <!-- Age -->
+                        <div class="form-group">
+                            <label class="form-label" data-i18n="lbl_age">Applicant Age (Years)</label>
+                            <input type="number" class="form-control" name="age" id="inp-age" min="18" max="75" value="28" required>
+                        </div>
+                    </div>
+
+                    <!-- Divyangjan / PwD Status -->
+                    <div class="form-group highlight-box">
+                        <div class="pwd-toggle-row">
+                            <label class="form-label" style="margin:0;" data-i18n="lbl_pwd">Are you a Person with Disability (Divyangjan / PwD)?</label>
+                            <label class="switch">
+                                <input type="checkbox" id="inp-pwd" onchange="togglePwdSlider(this)">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div id="pwd-pct-container" style="display:none; margin-top:14px;">
+                            <label class="form-label" data-i18n="lbl_pwd_pct">Certified Disability Percentage: <span id="pwd-pct-val" style="color:#059669; font-weight:800;">50%</span></label>
+                            <input type="range" class="range-slider" min="40" max="100" value="50" step="5" id="inp-pwd-pct" oninput="document.getElementById('pwd-pct-val').innerText = this.value + '%'">
+                        </div>
+                    </div>
+
+                    <div class="form-row-2">
+                        <!-- Annual Family Income -->
+                        <div class="form-group">
+                            <label class="form-label" data-i18n="lbl_income">Annual Family Income (₹): <strong id="income-val" style="color:#2563EB;">₹1,50,000</strong></label>
+                            <input type="range" class="range-slider" min="0" max="2500000" step="25000" value="150000" id="inp-income" oninput="updateIncomeDisplay(this.value)">
+                        </div>
+
+                        <!-- State -->
+                        <div class="form-group">
+                            <label class="form-label" data-i18n="lbl_state">State / UT</label>
+                            <select class="form-control" name="state" id="inp-state">
+                                <option value="All India" selected>All India</option>
+                                <option value="Maharashtra">Maharashtra</option>
+                                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                <option value="Tamil Nadu">Tamil Nadu</option>
+                                <option value="Karnataka">Karnataka</option>
+                                <option value="Gujarat">Gujarat</option>
+                                <option value="Rajasthan">Rajasthan</option>
+                                <option value="Bihar">Bihar</option>
+                                <option value="West Bengal">West Bengal</option>
+                                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                <option value="Odisha">Odisha</option>
+                                <option value="Delhi">Delhi</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Sector -->
+                    <div class="form-group">
+                        <label class="form-label" data-i18n="lbl_sector">Business Sector / Trade Domain</label>
+                        <select class="form-control" name="sector" id="inp-sector">
+                            <option value="All" selected>All Sectors</option>
+                            <option value="Manufacturing">Manufacturing</option>
+                            <option value="Services">Services</option>
+                            <option value="Trade">Trade & Retail</option>
+                            <option value="Artisans & Crafts">Artisans & Traditional Crafts</option>
+                            <option value="Agriculture & Allied">Agriculture & Allied</option>
+                            <option value="Startups & Tech">Startups & Tech</option>
+                            <option value="Greenfield Enterprises">Greenfield Enterprises</option>
+                            <option value="Food Processing">Food Processing</option>
+                            <option value="Textiles">Textiles & Handloom</option>
+                        </select>
+                    </div>
+
+                    <!-- Business Need Description -->
+                    <div class="form-group">
+                        <label class="form-label" data-i18n="lbl_business_need">Business Requirement / Purpose (AI Semantic Search):</label>
+                        <textarea class="form-control" id="inp-need" rows="3" placeholder="E.g., I want to purchase automatic tailoring & embroidery machines for an apparel manufacturing micro-enterprise in Pune." data-i18n-ph="ph_business_need"></textarea>
+                    </div>
+
+                    <!-- Low-bandwidth mode toggle -->
+                    <div class="form-check" style="margin-bottom:20px;">
+                        <input type="checkbox" id="inp-low-bw">
+                        <label for="inp-low-bw" style="font-size:0.95rem; color:#475569; margin-left:6px;" data-i18n="lbl_low_bw">⚡ Low-Bandwidth Mode (Fast keyword indexing, minimal data transfer)</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block btn-lg" id="btn-submit-match" data-i18n="btn_evaluate">🎯 Evaluate My Eligible Schemes</button>
+                </form>
+            </div>
+
+            <!-- Results Column -->
+            <div class="results-column" id="results-column">
+                <div class="card empty-state-card" id="empty-state">
+                    <div class="empty-icon">🇮🇳</div>
+                    <h3 data-i18n="empty_title">Ready to Find Your Scheme Matches</h3>
+                    <p data-i18n="empty_desc" style="color:#64748B; margin-top:8px;">Select your category, income, and business profile on the left and click "Evaluate My Eligible Schemes" to view matching welfare programs.</p>
+                </div>
+
+                <div id="loading-spinner" style="display:none;" class="loading-box card empty-state-card">
+                    <div class="empty-icon">⏳</div>
+                    <h3 data-i18n="loading_text">Analyzing eligibility criteria and calculating AI semantic match scores...</h3>
+                </div>
+
+                <!-- Matches Container -->
+                <div id="matches-wrapper" style="display:none;">
+                    <div class="results-header-bar">
+                        <h3 id="matches-count-text">🎯 Eligible Schemes Found</h3>
+                        <button class="btn btn-secondary btn-sm" onclick="printChecklistSlip()">🖨️ <span data-i18n="btn_print_slip">Print Slip</span></button>
+                    </div>
+
+                    <div id="scheme-cards-list"></div>
+
+                    <!-- Dynamic Universal Checklist -->
+                    <div class="card checklist-card" id="checklist-container">
+                        <h4 class="checklist-title">📋 <span data-i18n="checklist_header">Universal Document Checklist</span></h4>
+                        <p class="checklist-subtitle" data-i18n="checklist_sub">Consolidated documents required across your matched schemes:</p>
+                        <div id="checklist-items" class="checklist-grid"></div>
+                        <div style="margin-top:20px; display:flex; gap:12px; flex-wrap:wrap;">
+                            <button class="btn btn-primary btn-sm" onclick="downloadTextSlip()">📥 <span data-i18n="btn_download_slip">Download Summary (.txt)</span></button>
+                            <button class="btn btn-outline btn-sm" onclick="printChecklistSlip()">🖨️ <span data-i18n="btn_print">Print Document Slip</span></button>
+                        </div>
+                    </div>
+
+                    <!-- Nearest Nodal Office Card -->
+                    <div class="card helpdesk-card" id="helpdesk-banner">
+                        <h4 style="font-size:1.15rem; font-weight:800; color:#1E293B; margin-bottom:8px;">📍 <span data-i18n="helpdesk_card_title">Nearest State Facilitation Center</span></h4>
+                        <div id="helpdesk-details"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Public Scheme Explorer Section -->
+    <section class="catalog-section" id="explorer">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="explorer_title">📚 National Welfare Schemes Catalog</h2>
+                <p class="section-desc" data-i18n="explorer_sub">Search and filter affirmative government entrepreneurship credit & subsidy schemes.</p>
+            </div>
+
+            <!-- Gated Explorer Card (Shown when unauthenticated) -->
+            <div id="explorer-gate-card" class="card" style="text-align:center; padding:50px 30px; background:#F8FAFC; border:2px dashed #CBD5E1;">
+                <div style="font-size:3rem; margin-bottom:12px;">🔒</div>
+                <h3 style="font-size:1.4rem; color:#1E3A8A; margin-bottom:8px;">Full Schemes Catalog Locked</h3>
+                <p style="color:#64748B; font-size:1rem; margin-bottom:20px;">
+                    Please sign in or create an account to view and search all affirmative government credit & subsidy schemes.
+                </p>
+                <button class="btn btn-primary btn-lg" onclick="openAuthModal('login')">👤 Sign In / Sign Up to View Schemes</button>
+            </div>
+
+            <!-- Authenticated Explorer Content -->
+            <div id="explorer-unlocked-content" style="display:none;">
+                <div class="catalog-filter-bar">
+                    <input type="text" class="form-control" id="catalog-search" placeholder="🔍 Search by scheme name, ministry, or keyword..." oninput="filterCatalog()" data-i18n-ph="ph_search_catalog">
+                    <select class="form-control" id="catalog-cat-filter" onchange="filterCatalog()">
+                        <option value="All">All Social Categories</option>
+                        <option value="SC">SC</option>
+                        <option value="ST">ST</option>
+                        <option value="OBC">OBC</option>
+                        <option value="General">General / EWS</option>
+                        <option value="Minority">Minority</option>
+                    </select>
+                    <select class="form-control" id="catalog-type-filter" onchange="filterCatalog()">
+                        <option value="All">All Benefit Types</option>
+                        <option value="Loan">Loan</option>
+                        <option value="Subsidy">Subsidy</option>
+                        <option value="Composite">Composite</option>
+                        <option value="Equity">Equity</option>
+                    </select>
+                </div>
+
+                <div class="catalog-grid" id="catalog-grid"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Helpdesk Locator Section -->
+    <section class="helpdesk-section" id="helpdesk" style="padding:70px 0; background:#F8FAFC;">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="locator_title">📍 State Nodal Facilitation Directory</h2>
+                <p class="section-desc" data-i18n="locator_sub">Direct contacts for State SC/ST Corporations, MSME DFOs, and Divyangjan Welfare desks.</p>
+            </div>
+
+            <div class="card helpdesk-picker-card" style="max-width:800px; margin:0 auto;">
+                <div class="form-group" style="margin-bottom:24px;">
+                    <label class="form-label" data-i18n="lbl_select_state_desk">Select Your State / UT:</label>
+                    <select class="form-control" id="desk-state-select" onchange="renderHelpdeskDirectory()">
+                        <option value="National">National Central Directory</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                        <option value="Uttar Pradesh">Uttar Pradesh</option>
+                        <option value="Tamil Nadu">Tamil Nadu</option>
+                        <option value="Karnataka">Karnataka</option>
+                        <option value="Gujarat">Gujarat</option>
+                        <option value="Rajasthan">Rajasthan</option>
+                        <option value="Bihar">Bihar</option>
+                        <option value="West Bengal">West Bengal</option>
+                        <option value="Madhya Pradesh">Madhya Pradesh</option>
+                        <option value="Odisha">Odisha</option>
+                        <option value="Delhi">Delhi</option>
+                    </select>
+                </div>
+                <div id="desk-card-render"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Privacy Contract Section -->
+    <section class="privacy-section" id="privacy" style="padding:60px 0; background:#FFFFFF; border-top:1px solid #E2E8F0;">
+        <div class="container">
+            <div class="card privacy-contract-card" style="background:#F8FAFC; border:1.5px solid #CBD5E1;">
+                <div style="font-size:2.5rem; text-align:center; margin-bottom:12px;">🛡️</div>
+                <h3 style="text-align:center; font-size:1.6rem; font-weight:800; color:#1E3A8A; margin-bottom:24px;" data-i18n="privacy_contract_title">The Setu Privacy & Security Contract</h3>
+                <div class="hero-stats" style="grid-template-columns:repeat(3, 1fr);">
+                    <div class="stat-card" style="background:#FFFFFF; border-color:#E2E8F0; color:#1E293B; text-align:left;">
+                        <h4 style="color:#1E3A8A; margin-bottom:8px; font-size:1.1rem;">1. Zero Persistent Citizen PII</h4>
+                        <p style="font-size:0.92rem; color:#64748B;">No caste certificate numbers, income figures, disability status, or personal identifiers are written to disk, databases, or third-party loggers.</p>
+                    </div>
+                    <div class="stat-card" style="background:#FFFFFF; border-color:#E2E8F0; color:#1E293B; text-align:left;">
+                        <h4 style="color:#059669; margin-bottom:8px; font-size:1.1rem;">2. Explainable Rule Proofs</h4>
+                        <p style="font-size:0.92rem; color:#64748B;">Every percentage match comes with verifiable boolean criteria explaining why you qualify.</p>
+                    </div>
+                    <div class="stat-card" style="background:#FFFFFF; border-color:#E2E8F0; color:#1E293B; text-align:left;">
+                        <h4 style="color:#2563EB; margin-bottom:8px; font-size:1.1rem;">3. Least Privilege & Fail Closed</h4>
+                        <p style="font-size:0.92rem; color:#64748B;">Citizen queries run stateless in memory. Admin mutations require Bcrypt authentication and atomic disk writes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Citizen Auth Modal (Sign In, Sign Up, Verify OTP, Reset Password) -->
+    <div class="modal-overlay" id="auth-modal" style="display:none;">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="auth-modal-title">👤 Citizen Account</h3>
+                <button class="modal-close" onclick="closeAuthModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <!-- Tab: Sign In -->
+                <div id="view-auth-login">
+                    <h4 style="font-size:1.3rem; margin-bottom:6px;">Welcome Back</h4>
+                    <p style="color:#64748B; font-size:0.92rem; margin-bottom:20px;">Sign in to your Setu entrepreneur account.</p>
+                    <form onsubmit="handleUserLogin(event)">
+                        <div class="form-group">
+                            <label class="form-label">Email Address:</label>
+                            <input type="email" class="form-control" id="usr-login-email" placeholder="you@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <div style="display:flex; justify-content:space-between;">
+                                <label class="form-label">Password:</label>
+                                <a href="javascript:void(0)" onclick="switchAuthView('forgot')" style="font-size:0.85rem; color:#2563EB; font-weight:600;">Forgot Password?</a>
+                            </div>
+                            <input type="password" class="form-control" id="usr-login-pwd" placeholder="Enter your password..." required>
+                        </div>
+                        <div id="usr-login-error" style="color:#DC2626; font-size:0.9rem; margin-bottom:14px; display:none;"></div>
+                        <button type="submit" class="btn btn-primary btn-block btn-lg">Sign In</button>
+                    </form>
+                    <p style="text-align:center; margin-top:20px; font-size:0.92rem; color:#64748B;">
+                        New to Setu? <a href="javascript:void(0)" onclick="switchAuthView('signup')" style="color:#2563EB; font-weight:700;">Create an Account</a>
+                    </p>
+                </div>
+
+                <!-- Tab: Sign Up -->
+                <div id="view-auth-signup" style="display:none;">
+                    <h4 style="font-size:1.3rem; margin-bottom:6px;">Create Citizen Account</h4>
+                    <p style="color:#64748B; font-size:0.92rem; margin-bottom:20px;">A verification code will be sent to your email.</p>
+                    <form onsubmit="handleUserSignup(event)">
+                        <div class="form-group">
+                            <label class="form-label">Full Name:</label>
+                            <input type="text" class="form-control" id="usr-reg-name" placeholder="E.g., Ramesh Kumar" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email Address:</label>
+                            <input type="email" class="form-control" id="usr-reg-email" placeholder="ramesh@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Mobile Number (Optional):</label>
+                            <input type="tel" class="form-control" id="usr-reg-phone" placeholder="9876543210">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Set Password (Min 6 chars):</label>
+                            <input type="password" class="form-control" id="usr-reg-pwd" minlength="6" placeholder="Create strong password..." required>
+                        </div>
+                        <div id="usr-signup-error" style="color:#DC2626; font-size:0.9rem; margin-bottom:14px; display:none;"></div>
+                        <button type="submit" class="btn btn-primary btn-block btn-lg">Sign Up & Get OTP</button>
+                    </form>
+                    <p style="text-align:center; margin-top:20px; font-size:0.92rem; color:#64748B;">
+                        Already have an account? <a href="javascript:void(0)" onclick="switchAuthView('login')" style="color:#2563EB; font-weight:700;">Sign In</a>
+                    </p>
+                </div>
+
+                <!-- Tab: Verify Email OTP -->
+                <div id="view-auth-verify" style="display:none;">
+                    <div style="text-align:center; margin-bottom:18px;">
+                        <div style="font-size:2.4rem; margin-bottom:6px;">📬</div>
+                        <h4 style="font-size:1.35rem; color:#0F172A; margin-bottom:6px;">Check Your Email</h4>
+                        <p style="color:#64748B; font-size:0.92rem; line-height:1.5;">We sent a 6-digit verification code to <strong id="verify-email-display" style="color:#1E3A8A;">your email</strong>. Please check your inbox or Gmail app.</p>
+                    </div>
+
+                    <form onsubmit="handleVerifyEmail(event)">
+                        <div class="form-group">
+                            <label class="form-label" style="text-align:center; display:block;">Enter 6-Digit Verification Code:</label>
+                            <input type="text" class="form-control" id="usr-verify-otp" placeholder="• • • • • •" maxlength="6" style="font-size:1.6rem; letter-spacing:8px; text-align:center; font-weight:700; height:52px;" autofocus required>
+                        </div>
+                        <div id="usr-verify-error" style="color:#DC2626; font-size:0.9rem; margin-bottom:14px; text-align:center; display:none;"></div>
+                        <button type="submit" class="btn btn-primary btn-block btn-lg">Verify & Sign In</button>
+                    </form>
+                    <div style="text-align:center; margin-top:16px;">
+                        <span style="font-size:0.85rem; color:#64748B;">Didn't receive the code? </span>
+                        <a href="javascript:void(0)" onclick="resendVerificationCode()" style="color:#2563EB; font-weight:600; font-size:0.85rem;">Resend Email</a>
+                    </div>
+                </div>
+
+                <!-- Tab: Forgot Password -->
+                <div id="view-auth-forgot" style="display:none;">
+                    <h4 style="font-size:1.3rem; margin-bottom:6px;">Reset Password</h4>
+                    <p style="color:#64748B; font-size:0.92rem; margin-bottom:20px;">Enter your registered email address to receive a password reset code.</p>
+                    <form onsubmit="handleForgotPassword(event)">
+                        <div class="form-group">
+                            <label class="form-label">Email Address:</label>
+                            <input type="email" class="form-control" id="usr-forgot-email" placeholder="you@example.com" required>
+                        </div>
+                        <div id="usr-forgot-error" style="color:#DC2626; font-size:0.9rem; margin-bottom:14px; display:none;"></div>
+                        <button type="submit" class="btn btn-primary btn-block btn-lg">Send Reset Code</button>
+                    </form>
+                    <p style="text-align:center; margin-top:20px; font-size:0.92rem; color:#64748B;">
+                        <a href="javascript:void(0)" onclick="switchAuthView('login')" style="color:#2563EB; font-weight:700;">Back to Sign In</a>
+                    </p>
+                </div>
+
+                <!-- Tab: Enter Reset OTP and New Password -->
+                <div id="view-auth-reset" style="display:none;">
+                    <div style="text-align:center; margin-bottom:18px;">
+                        <div style="font-size:2.4rem; margin-bottom:6px;">🔑</div>
+                        <h4 style="font-size:1.35rem; color:#0F172A; margin-bottom:6px;">Set New Password</h4>
+                        <p style="color:#64748B; font-size:0.92rem;">Enter the 6-digit code from your email and your new password.</p>
+                    </div>
+
+                    <form onsubmit="handleResetPassword(event)">
+                        <div class="form-group">
+                            <label class="form-label">6-Digit Code:</label>
+                            <input type="text" class="form-control" id="usr-reset-otp" placeholder="• • • • • •" maxlength="6" style="font-size:1.4rem; letter-spacing:6px; text-align:center; font-weight:700;" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">New Password (Min 6 chars):</label>
+                            <input type="password" class="form-control" id="usr-reset-pwd" minlength="6" placeholder="Enter your new password..." required>
+                        </div>
+                        <div id="usr-reset-error" style="color:#DC2626; font-size:0.9rem; margin-bottom:14px; text-align:center; display:none;"></div>
+                        <button type="submit" class="btn btn-primary btn-block btn-lg">Update Password</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast Element -->
+    <div id="toast-notification" style="display:none;" class="toast-box"></div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container footer-content">
+            <div class="footer-left">
+                <div class="footer-brand">SETU • सेतु</div>
+                <p style="font-size:1rem; color:#CBD5E1;">National Affirmative Action Entrepreneurship Discovery Engine</p>
+                <p style="font-size:0.85rem; color:#94A3B8; margin-top:6px;">Built for Smart India Hackathon (SIH26092) • Ministry of Social Justice & Empowerment</p>
+            </div>
+            <div class="footer-right" style="text-align:right;">
+                <p>🔒 <strong>Zero PII Retention Certified</strong></p>
+                <p style="font-size:0.85rem; color:#94A3B8; margin-top:6px;">Confidential in-memory processing for all vulnerable demographics.</p>
+                <div style="margin-top:16px;">
+                    <a href="/admin" target="_blank" style="color:#64748B; font-size:0.85rem; text-decoration:none;">🔐 Official / Admin Access (Separate Portal)</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
