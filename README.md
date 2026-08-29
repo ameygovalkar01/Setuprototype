@@ -172,3 +172,4 @@ Open your browser at **`http://localhost:8000`** to access the complete responsi
 
 Developed for **Smart India Hackathon (SIH26092)**.  
 Ministry of Social Justice & Empowerment, Government of India.
+# Setuprototype
